@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище PhotoStudiooModelContainer" CdmEntityContainer="PhotoStudiooEntities">
+    <EntitySetMapping Name="contract">
+      <EntityTypeMapping TypeName="PhotoStudiooModel.contract">
+        <MappingFragment StoreEntitySet="contract">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name_contract" ColumnName="name_contract" />
+          <ScalarProperty Name="id_product" ColumnName="id_product" />
+          <ScalarProperty Name="contract_description" ColumnName="contract_description" />
+          <ScalarProperty Name="data_product" ColumnName="data_product" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="oborudivanie">
+      <EntityTypeMapping TypeName="PhotoStudiooModel.oborudivanie">
+        <MappingFragment StoreEntitySet="oborudivanie">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name_products" ColumnName="name_products" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orders">
+      <EntityTypeMapping TypeName="PhotoStudiooModel.orders">
+        <MappingFragment StoreEntitySet="orders">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_users" ColumnName="id_users" />
+          <ScalarProperty Name="id_product" ColumnName="id_product" />
+          <ScalarProperty Name="id_contract" ColumnName="id_contract" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product">
+      <EntityTypeMapping TypeName="PhotoStudiooModel.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name_product" ColumnName="name_product" />
+          <ScalarProperty Name="price_or" ColumnName="price_or" />
+          <ScalarProperty Name="product_description" ColumnName="product_description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="PhotoStudiooModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+          <ScalarProperty Name="name_role" ColumnName="name_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="suppliers">
+      <EntityTypeMapping TypeName="PhotoStudiooModel.suppliers">
+        <MappingFragment StoreEntitySet="suppliers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="company_suppliers" ColumnName="company_suppliers" />
+          <ScalarProperty Name="id_contract" ColumnName="id_contract" />
+          <ScalarProperty Name="oborudivanie_id" ColumnName="oborudivanie_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="PhotoStudiooModel.users">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+          <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+          <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="userlogin" ColumnName="userlogin" />
+          <ScalarProperty Name="user_password" ColumnName="user_password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

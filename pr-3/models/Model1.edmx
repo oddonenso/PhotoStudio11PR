@@ -1,0 +1,465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PhotooStudiiioooModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="contract">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_contract" Type="nvarchar" MaxLength="300" />
+          <Property Name="id_product" Type="int" Nullable="false" />
+          <Property Name="contract_description" Type="nvarchar" MaxLength="500" />
+          <Property Name="data_product" Type="date" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="IdGender" />
+          </Key>
+          <Property Name="IdGender" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameGender" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="oborudivanie">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_products" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_product" Type="nvarchar" MaxLength="150" />
+          <Property Name="price_or" Type="money" />
+          <Property Name="product_description" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_role" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="suppliers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_suppliers" Type="nvarchar" MaxLength="150" />
+          <Property Name="id_contract" Type="int" Nullable="false" />
+          <Property Name="oborudivanie_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" />
+          <Property Name="surname" Type="nvarchar" MaxLength="30" />
+          <Property Name="otchestvo" Type="nvarchar" MaxLength="30" />
+          <Property Name="phone_number" Type="nvarchar" MaxLength="22" />
+          <Property Name="email" Type="nvarchar" MaxLength="250" />
+          <Property Name="userlogin" Type="nvarchar" MaxLength="50" />
+          <Property Name="user_password" Type="nvarchar(max)" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="GenderId" Type="int" />
+          <Property Name="Image" Type="image" />
+        </EntityType>
+        <Association Name="FK__contract__id_pro__5812160E">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="contract" Type="Self.contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__suppliers__id_co__5AEE82B9">
+          <End Role="contract" Type="Self.contract" Multiplicity="1" />
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contract">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="suppliers">
+              <PropertyRef Name="id_contract" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__suppliers__oboru__5BE2A6F2">
+          <End Role="oborudivanie" Type="Self.oborudivanie" Multiplicity="1" />
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="oborudivanie">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="suppliers">
+              <PropertyRef Name="oborudivanie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__role_id__5165187F">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="IdGender" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PhotooStudiiioooModelContainer">
+          <EntitySet Name="contract" EntityType="Self.contract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="oborudivanie" EntityType="Self.oborudivanie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__contract__id_pro__5812160E" Association="Self.FK__contract__id_pro__5812160E">
+            <End Role="product" EntitySet="product" />
+            <End Role="contract" EntitySet="contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK__suppliers__id_co__5AEE82B9" Association="Self.FK__suppliers__id_co__5AEE82B9">
+            <End Role="contract" EntitySet="contract" />
+            <End Role="suppliers" EntitySet="suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__suppliers__oboru__5BE2A6F2" Association="Self.FK__suppliers__oboru__5BE2A6F2">
+            <End Role="oborudivanie" EntitySet="oborudivanie" />
+            <End Role="suppliers" EntitySet="suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__role_id__5165187F" Association="Self.FK__User__role_id__5165187F">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PhotooStudiiioooModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="contract">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_contract" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="id_product" Type="Int32" Nullable="false" />
+          <Property Name="contract_description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="data_product" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="product" Relationship="Self.FK__contract__id_pro__5812160E" FromRole="contract" ToRole="product" />
+          <NavigationProperty Name="suppliers" Relationship="Self.FK__suppliers__id_co__5AEE82B9" FromRole="contract" ToRole="suppliers" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="IdGender" />
+          </Key>
+          <Property Name="IdGender" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameGender" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Gender" FromRole="Gender" ToRole="User" />
+        </EntityType>
+        <EntityType Name="oborudivanie">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_products" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="suppliers" Relationship="Self.FK__suppliers__oboru__5BE2A6F2" FromRole="oborudivanie" ToRole="suppliers" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="price_or" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="product_description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="contract" Relationship="Self.FK__contract__id_pro__5812160E" FromRole="product" ToRole="contract" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_role" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK__User__role_id__5165187F" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="suppliers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_suppliers" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="id_contract" Type="Int32" Nullable="false" />
+          <Property Name="oborudivanie_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="contract" Relationship="Self.FK__suppliers__id_co__5AEE82B9" FromRole="suppliers" ToRole="contract" />
+          <NavigationProperty Name="oborudivanie" Relationship="Self.FK__suppliers__oboru__5BE2A6F2" FromRole="suppliers" ToRole="oborudivanie" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="otchestvo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="phone_number" Type="String" MaxLength="22" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="userlogin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="GenderId" Type="Int32" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_User_Gender" FromRole="User" ToRole="Gender" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__User__role_id__5165187F" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK__contract__id_pro__5812160E">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="contract" Type="Self.contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="contract">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__suppliers__id_co__5AEE82B9">
+          <End Role="contract" Type="Self.contract" Multiplicity="1" />
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contract">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="suppliers">
+              <PropertyRef Name="id_contract" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="IdGender" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__suppliers__oboru__5BE2A6F2">
+          <End Role="oborudivanie" Type="Self.oborudivanie" Multiplicity="1" />
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="oborudivanie">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="suppliers">
+              <PropertyRef Name="oborudivanie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__role_id__5165187F">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PhotooStudiiioooEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="contract" EntityType="Self.contract" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" />
+          <EntitySet Name="oborudivanie" EntityType="Self.oborudivanie" />
+          <EntitySet Name="product" EntityType="Self.product" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="suppliers" EntityType="Self.suppliers" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK__contract__id_pro__5812160E" Association="Self.FK__contract__id_pro__5812160E">
+            <End Role="product" EntitySet="product" />
+            <End Role="contract" EntitySet="contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK__suppliers__id_co__5AEE82B9" Association="Self.FK__suppliers__id_co__5AEE82B9">
+            <End Role="contract" EntitySet="contract" />
+            <End Role="suppliers" EntitySet="suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__suppliers__oboru__5BE2A6F2" Association="Self.FK__suppliers__oboru__5BE2A6F2">
+            <End Role="oborudivanie" EntitySet="oborudivanie" />
+            <End Role="suppliers" EntitySet="suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__role_id__5165187F" Association="Self.FK__User__role_id__5165187F">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PhotooStudiiioooModelContainer" CdmEntityContainer="PhotooStudiiioooEntities2">
+          <EntitySetMapping Name="contract">
+            <EntityTypeMapping TypeName="PhotooStudiiioooModel.contract">
+              <MappingFragment StoreEntitySet="contract">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name_contract" ColumnName="name_contract" />
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="contract_description" ColumnName="contract_description" />
+                <ScalarProperty Name="data_product" ColumnName="data_product" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gender">
+            <EntityTypeMapping TypeName="PhotooStudiiioooModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="IdGender" ColumnName="IdGender" />
+                <ScalarProperty Name="NameGender" ColumnName="NameGender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oborudivanie">
+            <EntityTypeMapping TypeName="PhotooStudiiioooModel.oborudivanie">
+              <MappingFragment StoreEntitySet="oborudivanie">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name_products" ColumnName="name_products" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product">
+            <EntityTypeMapping TypeName="PhotooStudiiioooModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name_product" ColumnName="name_product" />
+                <ScalarProperty Name="price_or" ColumnName="price_or" />
+                <ScalarProperty Name="product_description" ColumnName="product_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="PhotooStudiiioooModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name_role" ColumnName="name_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="PhotooStudiiioooModel.suppliers">
+              <MappingFragment StoreEntitySet="suppliers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="company_suppliers" ColumnName="company_suppliers" />
+                <ScalarProperty Name="id_contract" ColumnName="id_contract" />
+                <ScalarProperty Name="oborudivanie_id" ColumnName="oborudivanie_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PhotooStudiiioooModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="PhotooStudiiioooModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="userlogin" ColumnName="userlogin" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

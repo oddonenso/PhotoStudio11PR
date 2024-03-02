@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ed6cc7d5bebd4d9796ea49e21d107486" Name="Diagram1">
+        <EntityTypeShape EntityType="PhotooStudiiioooModel.contract" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhotooStudiiioooModel.Gender" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhotooStudiiioooModel.oborudivanie" Width="1.5" PointX="8" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhotooStudiiioooModel.product" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhotooStudiiioooModel.Role" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhotooStudiiioooModel.suppliers" Width="1.5" PointX="10.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhotooStudiiioooModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PhotooStudiiioooModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="PhotooStudiiioooModel.FK__contract__id_pro__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="PhotooStudiiioooModel.FK__suppliers__id_co__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="PhotooStudiiioooModel.FK_User_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="PhotooStudiiioooModel.FK__suppliers__oboru__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="PhotooStudiiioooModel.FK__User__role_id__5165187F" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

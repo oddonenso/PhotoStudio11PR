@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PhotooStudiiioooModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="contract">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name_contract" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="id_product" Type="Int32" Nullable="false" />
+    <Property Name="contract_description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="data_product" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="product" Relationship="Self.FK__contract__id_pro__5812160E" FromRole="contract" ToRole="product" />
+    <NavigationProperty Name="suppliers" Relationship="Self.FK__suppliers__id_co__5AEE82B9" FromRole="contract" ToRole="suppliers" />
+  </EntityType>
+  <EntityType Name="Gender">
+    <Key>
+      <PropertyRef Name="IdGender" />
+    </Key>
+    <Property Name="IdGender" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameGender" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="Self.FK_User_Gender" FromRole="Gender" ToRole="User" />
+  </EntityType>
+  <EntityType Name="oborudivanie">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name_products" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="suppliers" Relationship="Self.FK__suppliers__oboru__5BE2A6F2" FromRole="oborudivanie" ToRole="suppliers" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name_product" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="price_or" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="product_description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="contract" Relationship="Self.FK__contract__id_pro__5812160E" FromRole="product" ToRole="contract" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name_role" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="Self.FK__User__role_id__5165187F" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="suppliers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="company_suppliers" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="id_contract" Type="Int32" Nullable="false" />
+    <Property Name="oborudivanie_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="contract" Relationship="Self.FK__suppliers__id_co__5AEE82B9" FromRole="suppliers" ToRole="contract" />
+    <NavigationProperty Name="oborudivanie" Relationship="Self.FK__suppliers__oboru__5BE2A6F2" FromRole="suppliers" ToRole="oborudivanie" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="otchestvo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="phone_number" Type="String" MaxLength="22" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="userlogin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="user_password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="role_id" Type="Int32" Nullable="false" />
+    <Property Name="GenderId" Type="Int32" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Gender" Relationship="Self.FK_User_Gender" FromRole="User" ToRole="Gender" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__User__role_id__5165187F" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK__contract__id_pro__5812160E">
+    <End Role="product" Type="Self.product" Multiplicity="1" />
+    <End Role="contract" Type="Self.contract" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="contract">
+        <PropertyRef Name="id_product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__suppliers__id_co__5AEE82B9">
+    <End Role="contract" Type="Self.contract" Multiplicity="1" />
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contract">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="suppliers">
+        <PropertyRef Name="id_contract" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Gender">
+    <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gender">
+        <PropertyRef Name="IdGender" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="GenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__suppliers__oboru__5BE2A6F2">
+    <End Role="oborudivanie" Type="Self.oborudivanie" Multiplicity="1" />
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="oborudivanie">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="suppliers">
+        <PropertyRef Name="oborudivanie_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__role_id__5165187F">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PhotooStudiiioooEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="contract" EntityType="Self.contract" />
+    <EntitySet Name="Gender" EntityType="Self.Gender" />
+    <EntitySet Name="oborudivanie" EntityType="Self.oborudivanie" />
+    <EntitySet Name="product" EntityType="Self.product" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="suppliers" EntityType="Self.suppliers" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK__contract__id_pro__5812160E" Association="Self.FK__contract__id_pro__5812160E">
+      <End Role="product" EntitySet="product" />
+      <End Role="contract" EntitySet="contract" />
+    </AssociationSet>
+    <AssociationSet Name="FK__suppliers__id_co__5AEE82B9" Association="Self.FK__suppliers__id_co__5AEE82B9">
+      <End Role="contract" EntitySet="contract" />
+      <End Role="suppliers" EntitySet="suppliers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+      <End Role="Gender" EntitySet="Gender" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK__suppliers__oboru__5BE2A6F2" Association="Self.FK__suppliers__oboru__5BE2A6F2">
+      <End Role="oborudivanie" EntitySet="oborudivanie" />
+      <End Role="suppliers" EntitySet="suppliers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__role_id__5165187F" Association="Self.FK__User__role_id__5165187F">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
